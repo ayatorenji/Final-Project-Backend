@@ -38,8 +38,27 @@ Post.findById = (postId, result) => {
     });
 };
 
+// Post.getAll = result => {
+//     sql.query("SELECT * FROM posts", (err, res) => {
+//         if (err) {
+//             console.error("error: ", err);
+//             result(null, err);
+//             return;
+//         }
+
+//         console.log("posts: ", res);
+//         result(null, res);
+//     });
+// };
+
 Post.getAll = result => {
-    sql.query("SELECT * FROM posts", (err, res) => {
+    let query = "SELECT posts.id, posts.title, posts.description, posts.image, ";
+    query += "posts.created_at, posts.updated_at, posts.adopted, ";
+    query += "users.fullname AS author "; // Alias fullname as author
+    query += "FROM posts ";
+    query += "JOIN users ON posts.user_id = users.id";
+    
+    sql.query(query, (err, res) => {
         if (err) {
             console.error("error: ", err);
             result(null, err);
