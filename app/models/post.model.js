@@ -38,19 +38,6 @@ Post.findById = (postId, result) => {
     });
 };
 
-// Post.getAll = result => {
-//     sql.query("SELECT * FROM posts", (err, res) => {
-//         if (err) {
-//             console.error("error: ", err);
-//             result(null, err);
-//             return;
-//         }
-
-//         console.log("posts: ", res);
-//         result(null, res);
-//     });
-// };
-
 Post.getAll = result => {
     let query = "SELECT posts.id, posts.title, posts.description, posts.image, ";
     query += "posts.created_at, posts.updated_at, posts.adopted, ";
@@ -72,8 +59,8 @@ Post.getAll = result => {
 
 Post.updateById = (id, post, result) => {
     sql.query(
-        "UPDATE posts SET title = ?, description = ?, image = ?, adopted = ? WHERE id = ?",
-        [post.title, post.description, post.image, post.adopted, id],
+        "UPDATE posts SET title = ?, description = ?, image = ? WHERE id = ?",
+        [post.title, post.description, post.image, id],
         (err, res) => {
             if (err) {
                 console.error("error: ", err);
