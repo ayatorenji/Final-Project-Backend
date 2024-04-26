@@ -41,6 +41,7 @@ Post.findById = (postId, result) => {
 Post.getAll = result => {
     let query = "SELECT posts.id, posts.title, posts.description, posts.image, ";
     query += "posts.created_at, posts.updated_at, posts.adopted, ";
+    query += "users.id AS user_id, ";
     query += "users.fullname AS author "; // Alias fullname as author
     query += "FROM posts ";
     query += "JOIN users ON posts.user_id = users.id";
