@@ -9,5 +9,7 @@ module.exports = (app)=>{
     router.get("/", authJwt, user_controller.getAllUsers);
     router.put("/:id", authJwt, user_controller.updateUserCtrl);
     router.delete("/:id/:p1/:p2", authJwt, user_controller.deleteUser);
+    router.get("/:id/images", authJwt, user_controller.getUserImagesCtrl);
+
     app.use("/api/auth", router);
 };

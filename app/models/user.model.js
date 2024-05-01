@@ -2,7 +2,7 @@ const sql = require("./db");
 const jwt = require("jsonwebtoken");
 const scKey = require("../config/jwt.config");
 const bcrypt = require("bcryptjs/dist/bcrypt");
-const expireTime = "2h"; //token will expire in 2 hours
+const expireTime = "24h"; //token will expire in 24 hours
 const fs = require("fs");
 
 const User = function(user){
@@ -165,6 +165,21 @@ User.updateRating = (id, newRating, result) => {
             result(null, { id: id, rating: newRating });
         }
     );
+};
+
+User.getUserImages = (userId, result) => {
+    sql.query("SELECT img FROM users WHERE id = ?", [userId], (err, res) => {
+        if (err) {
+            console.log("Error: " + err);
+            result(err, null);
+            return;
+        }
+        if (res.length) {
+            result(null, res);
+            return;
+        }
+        result({ kind: "not_found" }, null);
+    });
 };
 
 module.exports = User;
