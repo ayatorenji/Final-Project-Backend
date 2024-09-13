@@ -1,3 +1,4 @@
+//post.controller
 const Post = require("../models/post.model.js");
 
 exports.create = (req, res) => {

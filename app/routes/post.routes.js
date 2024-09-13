@@ -1,3 +1,4 @@
+// post.routes
 module.exports = app => {
     const post_controller = require("../controllers/post.controller.js");
     var router = require("express").Router();

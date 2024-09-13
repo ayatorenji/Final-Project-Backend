@@ -1,3 +1,4 @@
+// post.model
 const sql = require("./db.js");
 
 const Post = function(post) {

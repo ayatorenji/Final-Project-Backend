@@ -1,3 +1,4 @@
+//server.js
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -17,6 +18,8 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/file.routes")(app);
 require("./app/routes/post.routes")(app);
 require("./app/routes/animalLife.routes")(app);
+require("./app/routes/chat.routes")(app);
+require("./app/routes/mapLocation.routes")(app);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
