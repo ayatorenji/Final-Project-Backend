@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const path = require('path');
+server.keepAliveTimeout = 30 * 1000;
+server.headersTimeout = 35 * 1000;
 global.__basedir = __dirname;
 var corsOptions = {origin: "*"};
 app.use(cors(corsOptions));
