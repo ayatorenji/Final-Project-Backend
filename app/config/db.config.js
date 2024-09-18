@@ -1,17 +1,9 @@
+require('dotenv').config();
+
 module.exports ={
-    // HOST: "localhost",
-    // USER: "root",
-    // PASSWORD: "",
-    // DB: "project",
-
-    HOST: "b8yk85cjetmrjczebhow-mysql.services.clever-cloud.com",
-    USER: "uczirkppf2pelurm",
-    PASSWORD: "4QoIQ0eR1gOx3GzjHi4g",
-    DB: "b8yk85cjetmrjczebhow",
-    PORT: "3306",
-
-    // HOST: "sql.freedb.tech",
-    // USER: "freedb_user_api",
-    // PASSWORD: "%B&2#Sn598uz?jU",
-    // DB: "freedb_myapi_db"
+    HOST: process.env.DB_HOST,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.DB_NAME,
+    PORT: process.env.DB_PORT
 };
