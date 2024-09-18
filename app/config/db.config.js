@@ -1,9 +1,9 @@
 require('dotenv').config();
 
 module.exports ={
-    HOST: process.env.DB_HOST,
-    USER: process.env.DB_USER,
-    PASSWORD: process.env.DB_PASSWORD,
-    DB: process.env.DB_NAME,
-    PORT: process.env.DB_PORT
+    HOST: "b8yk85cjetmrjczebhow-mysql.services.clever-cloud.com",
+    USER: "uczirkppf2pelurm",
+    PASSWORD: "4QoIQ0eR1gOx3GzjHi4g",
+    DB: "b8yk85cjetmrjczebhow",
+    PORT: "3306",
 };
