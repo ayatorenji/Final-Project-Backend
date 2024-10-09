@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 const multer = require("multer");
 const path = require("path");
 const util = require("util");
-const serviceAccount = require("../final-project-142d2-firebase-adminsdk-9bw96-0693c9e497.json");
+const serviceAccount = require("/etc/secrets/final-project-142d2-firebase-adminsdk-9bw96-0693c9e497.json");
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
