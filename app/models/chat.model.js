@@ -21,7 +21,7 @@ Chat.sendMessage = (newChat, result) => {
 };
 
 Chat.getChatsByPostId = (postId, result) => {
-  sql.query(`SELECT * FROM chats WHERE post_id = ? GROUP BY sender_id`, [postId], (err, res) => {
+  sql.query(`SELECT * FROM chats WHERE post_id = ? ORDER BY timestamp ASC`, [postId], (err, res) => {
       if (err) {
           console.error("error: ", err);
           result(err, null);
@@ -33,7 +33,7 @@ Chat.getChatsByPostId = (postId, result) => {
 };
 
 Chat.getMessages = (postId, senderId, receiverId, result) => {
-  sql.query(`SELECT * FROM chats WHERE post_id = ? AND ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) ORDER BY timestamp`,
+  sql.query(`SELECT * FROM chats WHERE post_id = ? AND ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) ORDER BY timestamp ASC`,
       [postId, senderId, receiverId, receiverId, senderId], (err, res) => {
       if (err) {
           console.error("error: ", err);
