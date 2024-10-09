@@ -83,21 +83,30 @@ Post.updateById = (id, post, result) => {
 };
 
 Post.remove = (id, result) => {
-    sql.query("DELETE FROM posts WHERE id = ?", id, (err, res) => {
+    console.log("Post ID to be deleted:", id);
+    sql.query("DELETE FROM map_locations WHERE post_id = ?", id, (err, res) => {
         if (err) {
-            console.error("error: ", err);
+            console.error("Error while deleting map locations: ", err);
             result(null, err);
             return;
         }
 
-        if (res.affectedRows == 0) {
-            // not found Post with the id
-            result({ kind: "not_found" }, null);
-            return;
-        }
+        sql.query("DELETE FROM posts WHERE id = ?", id, (err, res) => {
+            if (err) {
+                console.error("Error while deleting post: ", err);
+                result(null, err);
+                return;
+            }
 
-        console.log("deleted post with id: ", id);
-        result(null, res);
+            if (res.affectedRows == 0) {
+                console.log("No post found with ID: ", id);
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("Post deleted successfully with ID: ", id);
+            result(null, res);
+        });
     });
 };
 
