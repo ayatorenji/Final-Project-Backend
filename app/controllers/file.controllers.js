@@ -1,10 +1,11 @@
+//file.controllers.js
 const { uploadMiddleware, uploadToFirebase } = require("../middleware/upload");
 
 const uploadController = async (req, res)=>{
     try {
         console.log("file controller")
         await uploadMiddleware(req, res);
-        if(req.file == undefined){
+        if(!req.file){
             return res.status(400).send({
                 message: "Not Found the upload file."
             });

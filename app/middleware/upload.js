@@ -31,7 +31,7 @@ const uploadFile = multer({ storage: storage }).single("singlefile");
 // const uploadFile = multer({ storage: storage}).single("singlefile");
 
 //promisify => async-await
-const uploadMiddleware = util.promisify(uploadFile);
+const uploadMiddleware = multer({ storage }).single('file');
 
 // Upload to Firebase function
 const uploadToFirebase = async (file) => {
