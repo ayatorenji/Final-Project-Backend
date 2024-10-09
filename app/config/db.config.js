@@ -6,4 +6,9 @@ module.exports = {
     PASSWORD: process.env.PASSWORD,
     DB: process.env.DB,
     PORT: process.env.PORT
+
+    // HOST: "localhost",
+    // USER: "root",
+    // PASSWORD: "",
+    // DB: "project",
 };
