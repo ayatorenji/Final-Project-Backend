@@ -10,6 +10,8 @@ const uploadController = async (req, res)=>{
                 message: "Not Found the upload file."
             });
         }
+
+        console.log("Uploading file:", req.file);
         const fileUrl = await uploadToFirebase(req.file);
         res.status(200).send({
             message: "Upload file successfully.",
@@ -49,7 +51,5 @@ exports.uploadSingleFile = async (req, res) => {
       res.status(500).json({ message: "File upload failed", error: error.message });
     }
   };
-
-  console.log("Uploading file:", req.file);
   
 module.exports = { uploadController, displayAvatar};
