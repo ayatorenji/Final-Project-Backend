@@ -1,5 +1,6 @@
 //post.controller
 const Post = require("../models/post.model.js");
+const AnimalLife = require("../models/animalLife.model.js");
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -124,11 +125,10 @@ exports.findAllAdopted = (req, res) => {
     });
 };
 
-// Fetch post details along with sub-posts and increment view count
+// Fetch main post details along with sub-posts
 exports.getPostDetails = (req, res) => {
     const postId = req.params.postId;
 
-    // Increment the view count for the main post
     Post.incrementViewCount(postId, (err) => {
         if (err) {
             return res.status(500).send({
@@ -136,19 +136,27 @@ exports.getPostDetails = (req, res) => {
             });
         }
 
-        // Fetch the main post and its sub-posts
-        Post.getPostWithSubPosts(postId, (err, data) => {
+        Post.findById(postId, (err, post) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Error retrieving post details with id " + postId,
+                    message: "Error retrieving post with id " + postId,
                 });
             }
-            res.send(data);
+
+            AnimalLife.findByPostId(postId, (err, subPosts) => {
+                if (err) {
+                    return res.status(500).send({
+                        message: "Error retrieving sub-posts for post with id " + postId,
+                    });
+                }
+
+                res.send({ post, subPosts });
+            });
         });
     });
 };
 
-// Add a new sub-post (comment)
+// Add a new sub-post
 exports.addSubPost = (req, res) => {
     const postId = req.params.postId;
     const subPost = {
@@ -157,7 +165,7 @@ exports.addSubPost = (req, res) => {
         content: req.body.content,
     };
 
-    Post.addSubPost(subPost, (err, data) => {
+    AnimalLife.create(subPost, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "Error adding sub-post to post with id " + postId,
@@ -167,43 +175,13 @@ exports.addSubPost = (req, res) => {
     });
 };
 
-// Increment view count for a post
-exports.incrementViewCount = (req, res) => {
-    const postId = req.params.postId;
-
-    Post.incrementViewCount(postId, (err, data) => {
-        if (err) {
-            return res.status(500).send({
-                message: "Error incrementing view count for post with id " + postId,
-            });
-        }
-        res.send({ message: "View count incremented successfully." });
-    });
-};
-
-// Like a sub-post
+// Increment like count for a sub-post
 exports.likeSubPost = (req, res) => {
     const subPostId = req.params.subPostId;
-
-    Post.incrementLikeCount(subPostId, (err, data) => {
+    AnimalLife.incrementLikeCount(subPostId, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "Error liking sub-post with id " + subPostId,
-            });
-        }
-        res.send({ message: "Sub-post liked successfully." });
-    });
-};
-
-// Edit a sub-post
-exports.editSubPost = (req, res) => {
-    const subPostId = req.params.subPostId;
-    const updatedContent = req.body.content;
-
-    Post.editSubPost(subPostId, updatedContent, (err, data) => {
-        if (err) {
-            return res.status(500).send({
-                message: "Error editing sub-post with id " + subPostId,
             });
         }
         res.send(data);
@@ -213,13 +191,12 @@ exports.editSubPost = (req, res) => {
 // Delete a sub-post
 exports.deleteSubPost = (req, res) => {
     const subPostId = req.params.subPostId;
-
-    Post.deleteSubPost(subPostId, (err, data) => {
+    AnimalLife.delete(subPostId, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "Error deleting sub-post with id " + subPostId,
             });
         }
-        res.send({ message: "Sub-post deleted successfully." });
+        res.send({ message: "Sub-post deleted successfully!" });
     });
 };
