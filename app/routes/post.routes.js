@@ -9,5 +9,13 @@ module.exports = app => {
     router.put("/:postId", post_controller.update);
     router.delete("/:postId", post_controller.delete);
     router.put("/:id/mark", post_controller.markAdopted);
+
+    router.get("/:postId/details", postController.getPostDetails);
+    router.post("/:postId/sub-posts", postController.addSubPost);
+    router.post("/:postId/increment-view", postController.incrementViewCount);
+    router.put("/:subPostId/like", postController.likeSubPost);
+    router.put("/:subPostId/edit", postController.editSubPost);
+    router.delete("/:subPostId", postController.deleteSubPost);
+    
     app.use("/api/post", router);
 };
