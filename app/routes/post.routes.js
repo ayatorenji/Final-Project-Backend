@@ -10,12 +10,12 @@ module.exports = app => {
     router.delete("/:postId", post_controller.delete);
     router.put("/:id/mark", post_controller.markAdopted);
 
-    router.get("/:postId/details", postController.getPostDetails);
-    router.post("/:postId/sub-posts", postController.addSubPost);
-    router.post("/:postId/increment-view", postController.incrementViewCount);
-    router.put("/:subPostId/like", postController.likeSubPost);
-    router.put("/:subPostId/edit", postController.editSubPost);
-    router.delete("/:subPostId", postController.deleteSubPost);
-    
+    router.get("/:postId/details", post_controller.getPostDetails);
+    router.post("/:postId/sub-posts", post_controller.addSubPost);
+    router.post("/:postId/increment-view", post_controller.incrementViewCount);
+    router.put("/:subPostId/like", post_controller.likeSubPost);
+    router.put("/:subPostId/edit", post_controller.editSubPost);
+    router.delete("/:subPostId", post_controller.deleteSubPost);
+
     app.use("/api/post", router);
 };
