@@ -129,32 +129,25 @@ exports.findAllAdopted = (req, res) => {
 exports.getPostDetails = (req, res) => {
     const postId = req.params.postId;
 
-    Post.incrementViewCount(postId, (err) => {
+    Post.findById(postId, (err, post) => {
         if (err) {
             return res.status(500).send({
-                message: "Error incrementing view count for post with id " + postId,
+                message: "Error retrieving post with id " + postId,
             });
         }
 
-        Post.findById(postId, (err, post) => {
+        AnimalLife.findByPostId(postId, (err, subPosts) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Error retrieving post with id " + postId,
+                    message: "Error retrieving sub-posts for post with id " + postId,
                 });
             }
 
-            AnimalLife.findByPostId(postId, (err, subPosts) => {
-                if (err) {
-                    return res.status(500).send({
-                        message: "Error retrieving sub-posts for post with id " + postId,
-                    });
-                }
-
-                res.send({ post, subPosts });
-            });
+            res.send({ post, subPosts });
         });
     });
 };
+
 
 // Add a new sub-post
 exports.addSubPost = (req, res) => {
