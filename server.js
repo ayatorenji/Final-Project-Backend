@@ -18,7 +18,6 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 require("./app/routes/user.routes")(app);
 require("./app/routes/file.routes")(app);
 require("./app/routes/post.routes")(app);
-require("./app/routes/animalLife.routes")(app);
 require("./app/routes/chat.routes")(app);
 require("./app/routes/mapLocation.routes")(app);
 
