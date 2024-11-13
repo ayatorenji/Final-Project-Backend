@@ -1,6 +1,6 @@
 //post.controller
 const Post = require("../models/post.model.js");
-const AnimalLife = require("../models/animalLife.model.js");
+const SubPost = require("../models/animalLife.model.js");
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -136,7 +136,7 @@ exports.getPostDetails = (req, res) => {
             });
         }
 
-        AnimalLife.findByPostId(postId, (err, subPosts) => {
+        SubPost.findByPostId(postId, (err, subPosts) => {
             if (err) {
                 return res.status(500).send({
                     message: "Error retrieving sub-posts for post with id " + postId,
@@ -158,7 +158,7 @@ exports.addSubPost = (req, res) => {
         content: req.body.content,
     };
 
-    AnimalLife.create(subPost, (err, data) => {
+    SubPost.create(subPost, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "Error adding sub-post to post with id " + postId,
@@ -171,7 +171,7 @@ exports.addSubPost = (req, res) => {
 // Increment like count for a sub-post
 exports.likeSubPost = (req, res) => {
     const subPostId = req.params.subPostId;
-    AnimalLife.incrementLikeCount(subPostId, (err, data) => {
+    SubPost.incrementLikeCount(subPostId, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "Error liking sub-post with id " + subPostId,
@@ -184,12 +184,22 @@ exports.likeSubPost = (req, res) => {
 // Delete a sub-post
 exports.deleteSubPost = (req, res) => {
     const subPostId = req.params.subPostId;
-    AnimalLife.delete(subPostId, (err, data) => {
+    SubPost.delete(subPostId, (err, data) => {
         if (err) {
             return res.status(500).send({
                 message: "Error deleting sub-post with id " + subPostId,
             });
         }
         res.send({ message: "Sub-post deleted successfully!" });
+    });
+};
+
+exports.findAllSubPosts = (req, res) => {
+    SubPost.getAll((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: "Some error occurred while retrieving sub-posts."
+            });
+        } else res.send(data);
     });
 };

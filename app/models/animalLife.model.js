@@ -1,15 +1,16 @@
 // animalLife.model.js
 const sql = require("./db.js");
 
-const AnimalLife = function(subPost) {
+const SubPost = function(subPost) {
     this.post_id = subPost.post_id;
     this.user_id = subPost.user_id;
     this.content = subPost.content;
+    this.image = subPost.image;
     this.likes = subPost.likes || 0;
 };
 
 // Retrieve all sub-posts for a given main post ID
-AnimalLife.findByPostId = (postId, result) => {
+SubPost.findByPostId = (postId, result) => {
     sql.query("SELECT * FROM animal_life WHERE post_id = ?", [postId], (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -21,7 +22,7 @@ AnimalLife.findByPostId = (postId, result) => {
 };
 
 // Create a new sub-post
-AnimalLife.create = (newSubPost, result) => {
+SubPost.create = (newSubPost, result) => {
     sql.query("INSERT INTO animal_life SET ?", newSubPost, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -33,7 +34,7 @@ AnimalLife.create = (newSubPost, result) => {
 };
 
 // Increment likes for a sub-post
-AnimalLife.incrementLikeCount = (subPostId, result) => {
+SubPost.incrementLikeCount = (subPostId, result) => {
     sql.query("UPDATE animal_life SET likes = likes + 1 WHERE id = ?", [subPostId], (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -45,7 +46,7 @@ AnimalLife.incrementLikeCount = (subPostId, result) => {
 };
 
 // Delete a sub-post by ID
-AnimalLife.delete = (id, result) => {
+SubPost.delete = (id, result) => {
     sql.query("DELETE FROM animal_life WHERE id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -56,4 +57,26 @@ AnimalLife.delete = (id, result) => {
     });
 };
 
-module.exports = AnimalLife;
+SubPost.getAll = result => {
+    let query = "SELECT animal_life.id AS sub_post_id, animal_life.content, animal_life.image, ";
+    query += "animal_life.likes, animal_life.created_at, animal_life.updated_at, ";
+    query += "users.id AS user_id, users.fullname AS author, users.img AS user_image, ";
+    query += "posts.title AS post_title ";
+    query += "FROM animal_life ";
+    query += "JOIN users ON animal_life.user_id = users.id ";
+    query += "JOIN posts ON animal_life.post_id = posts.id ";
+    query += "WHERE animal_life.post_id = ?";
+    
+    sql.query(query, (err, res) => {
+        if (err) {
+            console.error("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log("sub-posts: ", res);
+        result(null, res);
+    });
+};
+
+module.exports = SubPost;

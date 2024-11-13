@@ -11,6 +11,7 @@ module.exports = app => {
     router.put("/:id/mark", post_controller.markAdopted);
 
      // Sub-post routes
+     router.get("/sub-posts", post_controller.findAllSubPosts);
      router.get("/:postId/details", post_controller.getPostDetails);  // Fetch main post details along with sub-posts
      router.post("/:postId/sub-posts", post_controller.addSubPost);    // Add a new sub-post
      router.put("/sub-posts/:subPostId/like", post_controller.likeSubPost);  // Like a sub-post
