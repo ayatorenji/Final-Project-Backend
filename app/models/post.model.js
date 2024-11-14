@@ -16,7 +16,7 @@ Post.create = (newPost, result) => {
             result(err, null);
             return;
         }
-        console.log("created post: ", { id: res.insertId, ...newPost });
+        console.log("created the post: ", { id: res.insertId, ...newPost });
         result(null, { id: res.insertId, ...newPost });
     });
 };

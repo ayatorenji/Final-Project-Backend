@@ -151,17 +151,21 @@ exports.getPostDetails = (req, res) => {
 
 // Add a new sub-post
 exports.addSubPost = (req, res) => {
-    const postId = req.params.postId;
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
     const subPost = {
-        post_id: postId,
+        post_id: req.body.post_id,
         user_id: req.body.user_id,
         content: req.body.content,
+        image: req.body.image,
     };
-
     SubPost.create(subPost, (err, data) => {
         if (err) {
             return res.status(500).send({
-                message: "Error adding sub-post to post with id " + postId,
+                message: "Error adding sub-post to post with id " + req.body.post_id,
             });
         }
         res.send(data);

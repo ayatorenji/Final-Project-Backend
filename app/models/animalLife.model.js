@@ -29,6 +29,7 @@ SubPost.create = (newSubPost, result) => {
             result(err, null);
             return;
         }
+        console.log("created the sub post: ", { id: res.insertId, ...newSubPost });
         result(null, { id: res.insertId, ...newSubPost });
     });
 };
