@@ -13,7 +13,7 @@ module.exports = app => {
      // Sub-post routes
      router.get("/sub-posts", post_controller.findAllSubPosts);
      router.get("/:postId/details", post_controller.getPostDetails);  // Fetch main post details along with sub-posts
-     router.post("/subpost", post_controller.addSubPost);    // Add a new sub-post
+     router.post("/:postId/sub-posts", post_controller.addSubPost);    // Add a new sub-post
      router.put("/sub-posts/:subPostId/like", post_controller.likeSubPost);  // Like a sub-post
      router.delete("/sub-posts/:subPostId", post_controller.deleteSubPost);  // Delete a sub-post
      
