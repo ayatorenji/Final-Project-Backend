@@ -129,7 +129,7 @@ exports.findAllAdopted = (req, res) => {
 exports.getPostDetails = (req, res) => {
     const postId = req.params.postId;
 
-    Post.findById(postId, (err, post) => {
+    SubPost.findByPostId(postId, (err, post) => {
         if (err) {
             return res.status(500).send({
                 message: "Error retrieving post with id " + postId,
