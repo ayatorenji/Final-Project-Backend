@@ -10,8 +10,8 @@ const SubPost = function(subPost) {
 };
 
 // Retrieve all sub-posts for a given main post ID
-SubPost.findByPostId = (postId, result) => {
-    sql.query("SELECT * FROM animal_life WHERE post_id = ?", [postId], (err, res) => {
+SubPost.findByPostId = (subPostId, result) => {
+    sql.query("SELECT * FROM animal_life WHERE post_id = ?", [subPostId], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

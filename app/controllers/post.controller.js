@@ -127,24 +127,18 @@ exports.findAllAdopted = (req, res) => {
 
 // Fetch main post details along with sub-posts
 exports.getPostDetails = (req, res) => {
-    const postId = req.params.postId;
-
-    SubPost.findByPostId(postId, (err, post) => {
+    SubPost.findByPostId(req.params.subPostId, (err, data) => {
         if (err) {
-            return res.status(500).send({
-                message: "Error retrieving post with id " + postId,
-            });
-        }
-
-        SubPost.findByPostId(postId, (err, subPosts) => {
-            if (err) {
-                return res.status(500).send({
-                    message: "Error retrieving sub-posts for post with id " + postId,
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Post with id ${req.params.subPostId}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving Post with id " + req.params.subPostId
                 });
             }
-
-            res.send({ post, subPosts });
-        });
+        } else res.send(data);
     });
 };
 
