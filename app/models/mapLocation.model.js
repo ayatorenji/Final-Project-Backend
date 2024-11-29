@@ -46,9 +46,10 @@ MapLocation.findByPostId = (postId, result) => {
 
 MapLocation.findAll = (result) => {
   const query = `
-    SELECT m.latitude, m.longitude, m.description, p.title, p.description as postDescription, p.image
+    SELECT m.latitude, m.longitude, m.description, p.title, p.description as postDescription, p.image as postImage, u.fullname, u.img as userImage
     FROM map_locations m
     JOIN posts p ON m.post_id = p.id
+    JOIN users u ON p.user_id = u.id
   `;
 
   sql.query(query, (err, res) => {
