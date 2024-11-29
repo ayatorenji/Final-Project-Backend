@@ -49,7 +49,20 @@ SubPost.incrementLikeCount = (subPostId, result) => {
             result(err, null);
             return;
         }
-        result(null, { id: subPostId });
+        if (res.affectedRows == 0) {
+            // No rows were updated, meaning the subPostId does not exist
+            result({ kind: "not_found" }, null);
+        } else {
+            // Fetch the new likes count to return it
+            sql.query("SELECT likes FROM animal_life WHERE id = ?", [subPostId], (err, res) => {
+                if (err) {
+                    console.log("error: ", err);
+                    result(err, null);
+                    return;
+                }
+                result(null, res[0]); // return the row with the new likes count
+            });
+        }
     });
 };
 

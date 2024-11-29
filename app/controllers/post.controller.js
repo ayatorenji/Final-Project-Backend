@@ -183,11 +183,18 @@ exports.likeSubPost = (req, res) => {
     const subPostId = req.params.subPostId;
     SubPost.incrementLikeCount(subPostId, (err, data) => {
         if (err) {
-            return res.status(500).send({
-                message: "Error liking sub-post with id " + subPostId,
-            });
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Sub-post with id ${subPostId} not found.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error liking sub-post with id " + subPostId
+                });
+            }
+        } else {
+            res.send(data); 
         }
-        res.send(data);
     });
 };
 
