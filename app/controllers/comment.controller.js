@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     const comment = new Comment({
         sub_post_id: req.body.sub_post_id,
         user_id: req.body.user_id,
-        content: req.body.content,
+        ment: req.body.content,
     });
 
     Comment.create(comment, (err, data) => {
