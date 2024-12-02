@@ -22,10 +22,11 @@ Comment.create = (newComment, result) => {
 
 Comment.findBySubPostId = (subPostId, result) => {
     sql.query(
-        `SELECT comments.id, comments.content, comments.created_at, 
-        users.fullname AS author, users.img AS user_img 
+        `SELECT comments.comment_id, comments.ment, comments.created_at, 
+        users.fullname AS author, users.img AS user_img, animal_life.image as subpostImage
         FROM comments 
         JOIN users ON comments.user_id = users.id 
+        JOIN animal_life ON comments.sub_post_id = animal_life.id
         WHERE comments.sub_post_id = ? 
         ORDER BY comments.created_at DESC`,
         [subPostId],
