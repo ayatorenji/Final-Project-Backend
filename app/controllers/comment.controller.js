@@ -1,4 +1,6 @@
 // comment.controller.js
+const Comment = require("../models/comment.model.js");
+
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({
