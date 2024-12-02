@@ -20,6 +20,7 @@ require("./app/routes/file.routes")(app);
 require("./app/routes/post.routes")(app);
 require("./app/routes/chat.routes")(app);
 require("./app/routes/mapLocation.routes")(app);
+require("./app/routes/comment.routes")(app);
 
 // Default route
 app.get("/", (req, res) => {
