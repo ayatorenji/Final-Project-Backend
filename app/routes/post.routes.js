@@ -4,13 +4,13 @@ module.exports = app => {
     var router = require("express").Router();
     router.post("/", post_controller.create);
     router.get("/all", post_controller.findAll);
+    router.get("/countAll", post_controller.countAllPosts);
     router.get("/adopted", post_controller.findAllAdopted);
     router.get("/:postId", post_controller.findOne);
     router.put("/:postId", post_controller.update);
     router.delete("/:postId", post_controller.delete);
     router.put("/:id/mark", post_controller.markAdopted);
     router.get("/count/:userId", post_controller.countUserPosts);
-    router.get("/countAll", post_controller.countAllPosts);
 
      // Sub-post routes
      router.get("/sub-posts", post_controller.findAllSubPosts);
