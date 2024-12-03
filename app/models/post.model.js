@@ -168,4 +168,15 @@ Post.countAll = result => {
     });
 };
 
+Post.countPostsOverTime = (result) => {
+    sql.query("SELECT DATE(created_at) as date, COUNT(*) as count FROM posts GROUP BY DATE(created_at) ORDER BY DATE(created_at)", (err, res) => {
+        if (err) {
+            console.error("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+};
+
 module.exports = Post;

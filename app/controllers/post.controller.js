@@ -250,3 +250,11 @@ exports.countSubPostsByUser = (req, res) => {
         }
     });
 };
+
+exports.countPostsOverTime = (req, res) => {
+    Post.countPostsOverTime((err, data) => {
+        if (err)
+            res.status(500).send({ message: err.message || "Some error occurred while counting posts over time." });
+        else res.send(data);
+    });
+};

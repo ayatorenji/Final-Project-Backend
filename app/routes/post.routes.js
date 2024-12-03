@@ -5,6 +5,7 @@ module.exports = app => {
     router.post("/", post_controller.create);
     router.get("/all", post_controller.findAll);
     router.get("/countAll", post_controller.countAllPosts);
+    router.get("/countOverTime", post_controller.countPostsOverTime);
     router.get("/adopted", post_controller.findAllAdopted);
     router.get("/:postId", post_controller.findOne);
     router.put("/:postId", post_controller.update);
