@@ -18,7 +18,7 @@ module.exports = app => {
      router.post("/:postId/sub-posts", post_controller.addSubPost);   
      router.put("/sub-posts/:subPostId/like", post_controller.likeSubPost); 
      router.delete("/sub-posts/:subPostId", post_controller.deleteSubPost);
-     router.get("/count/:userId", post_controller.countSubPostsByUser);
+     router.get("/sub-posts/count/:userId", post_controller.countSubPostsByUser);
      
     app.use("/api/post", router);
 };
