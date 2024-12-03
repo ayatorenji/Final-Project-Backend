@@ -10,7 +10,7 @@ module.exports = app => {
     router.delete("/:postId", post_controller.delete);
     router.put("/:id/mark", post_controller.markAdopted);
     router.get("/count/:userId", post_controller.countUserPosts);
-    router.get("/countall", post_controller.countAllPosts);
+    router.get("/countAll", post_controller.countAllPosts);
 
      // Sub-post routes
      router.get("/sub-posts", post_controller.findAllSubPosts);
