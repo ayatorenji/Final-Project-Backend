@@ -220,3 +220,33 @@ exports.findAllSubPosts = (req, res) => {
         } else res.send(data);
     });
 };
+
+// Count posts by a specific user
+exports.countUserPosts = (req, res) => {
+    Post.countByUserId(req.params.userId, (err, data) => {
+        if (err)
+            res.status(500).send({ message: err.message || "Some error occurred while counting posts." });
+        else res.send({ totalPostsByUser: data });
+    });
+};
+
+// Count all posts
+exports.countAllPosts = (req, res) => {
+    Post.countAll((err, data) => {
+        if (err)
+            res.status(500).send({ message: err.message || "Some error occurred while counting all posts." });
+        else res.send({ totalPosts: data });
+    });
+};
+
+// Count sub-posts by a specific user
+exports.countSubPostsByUser = (req, res) => {
+    const userId = req.params.userId;
+    SubPost.countByUserId(userId, (err, data) => {
+        if (err) {
+            res.status(500).send({ message: err.message || "Some error occurred while counting sub-posts by user." });
+        } else {
+            res.send({ totalSubPostsByUser: data });
+        }
+    });
+};

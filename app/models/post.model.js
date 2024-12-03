@@ -144,4 +144,28 @@ Post.getAllAdopted = result => {
     });
 };
 
+// Count the total posts by a specific user
+Post.countByUserId = (userId, result) => {
+    sql.query("SELECT COUNT(*) AS total FROM posts WHERE user_id = ?", [userId], (err, res) => {
+        if (err) {
+            console.error("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res[0].total);
+    });
+};
+
+// Count all posts
+Post.countAll = result => {
+    sql.query("SELECT COUNT(*) AS total FROM posts", (err, res) => {
+        if (err) {
+            console.error("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res[0].total);
+    });
+};
+
 module.exports = Post;

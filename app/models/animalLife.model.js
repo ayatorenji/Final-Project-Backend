@@ -100,4 +100,15 @@ SubPost.getAll = result => {
     });
 };
 
+SubPost.countByUserId = (userId, result) => {
+    sql.query("SELECT COUNT(*) AS total FROM animal_life WHERE user_id = ?", [userId], (err, res) => {
+        if (err) {
+            console.error("error: ", err);
+            result(err, null);
+            return;
+        }
+        result(null, res[0].total);
+    });
+};
+
 module.exports = SubPost;

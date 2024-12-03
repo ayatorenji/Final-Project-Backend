@@ -9,13 +9,16 @@ module.exports = app => {
     router.put("/:postId", post_controller.update);
     router.delete("/:postId", post_controller.delete);
     router.put("/:id/mark", post_controller.markAdopted);
+    router.get("/count/:userId", post_controller.countUserPosts);
+    router.get("/count-all", post_controller.countAllPosts);
 
      // Sub-post routes
      router.get("/sub-posts", post_controller.findAllSubPosts);
-     router.get("/:postId/details", post_controller.getPostDetails);  // Fetch main post details along with sub-posts
-     router.post("/:postId/sub-posts", post_controller.addSubPost);    // Add a new sub-post
-     router.put("/sub-posts/:subPostId/like", post_controller.likeSubPost);  // Like a sub-post
-     router.delete("/sub-posts/:subPostId", post_controller.deleteSubPost);  // Delete a sub-post
+     router.get("/:postId/details", post_controller.getPostDetails); 
+     router.post("/:postId/sub-posts", post_controller.addSubPost);   
+     router.put("/sub-posts/:subPostId/like", post_controller.likeSubPost); 
+     router.delete("/sub-posts/:subPostId", post_controller.deleteSubPost);
+     router.get("/count/:userId", post_controller.countSubPostsByUser);
      
     app.use("/api/post", router);
 };
